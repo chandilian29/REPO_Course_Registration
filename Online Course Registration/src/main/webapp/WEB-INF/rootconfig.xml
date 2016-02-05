@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/tx
+       	http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+    <import resource="springmvc-servlet.xml"></import>
+  
+
+        
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties" ref="hibernateProperties" />
+        <!-- OR mapping files. -->
+        <property name="annotatedClasses">
+            <list>
+
+                <value>com.mum.edu.domain.MyUser</value>
+                <value>com.mum.edu.domain.Product</value>
+                <value>com.mum.edu.domain.Product_Stock</value>
+                <value>com.mum.edu.domain.Section</value>
+                <value>com.mum.edu.domain.Course</value>
+                <value>com.mum.edu.domain.Faculty</value>
+                <value>com.mum.edu.domain.Administrator</value>
+                <value>com.mum.edu.domain.Customer</value>
+                <value>com.mum.edu.domain.ShoppingCart</value>
+                <value>com.mum.edu.domain.Order</value>
+                <value>com.mum.edu.domain.Waiver</value>  
+            </list>  
+    
+        </property>
+    </bean>
+
+    <!-- the datasource -->
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost/mydb" />
+        <property name="username" value="root" />
+        <property name="password" value="" />
+    </bean>
+
+    <!-- hibernate Properties -->
+    <bean id="hibernateProperties"
+          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="properties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect
+                </prop>
+                <prop key="connection.pool_size">1</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="txManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <!-- look for transaction annotations -->
+    <tx:annotation-driven transaction-manager="txManager" />
+    
+    <!-- manually create the carService here -->
+  
+    <!--LibraryService-->
+    <bean id="loginService" class="com.edu.mum.service.LoginServiceImpl">
+        <constructor-arg index="0" ref="loginDao" />
+    </bean>
+    <bean id="loginDao" class="com.edu.mum.dao.LoginDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <!--My new Definition-->
+    <bean id="productService" class="com.edu.mum.service.ProductServiceImpl">
+        <constructor-arg index="0" ref="productDao" />
+    </bean>
+    <bean id="productDao" class="com.edu.mum.dao.ProductDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="yogaCourseService" class="com.edu.mum.service.YogaCourseService">
+        
+        <constructor-arg index="0" ref="yogaCourseDAO" />
+        
+    </bean>    
+    
+    <bean id="yogaCourseDAO" class="com.edu.mum.dao.YogaCourseDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+
+    <bean id="customerService" class="com.edu.mum.service.CustomerService">
+        <property name="customerDAO" ref="customerDAO" />
+    </bean>  
+    
+    <bean id="customerDAO" class="com.edu.mum.dao.CustomerDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="facultyService" class="com.edu.mum.service.FacultyService">
+        <property name="facultyDAO" ref="facultyDAO" />
+    </bean>  
+    
+    <bean id="facultyDAO" class="com.edu.mum.dao.FacultyDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="adminService" class="com.edu.mum.service.AdministratorService">
+        <property name="adminDAO" ref="adminDAO" />
+    </bean>  
+    
+    <bean id="adminDAO" class="com.edu.mum.dao.AdministratorDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>                  
+
+    <!--Section Service Definition-->
+    <bean id="sectionService" class="com.edu.mum.service.SectionServiceImpl">
+        <constructor-arg index="0" ref="sectionDao" />
+    </bean>
+    <bean id="sectionDao" class="com.edu.mum.dao.SectionDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <!--Course Service Definition-->
+    <bean id="courseService" class="com.edu.mum.service.CourseServiceImpl">
+        <constructor-arg index="0" ref="courseDao" />
+    </bean>
+    <bean id="courseDao" class="com.edu.mum.dao.CourseDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+
+    <bean id="waiverService" class="com.edu.mum.service.WaiverService">
+        <property name="waiverDAO" ref="waiverDAO" />
+    </bean>  
+    
+    <bean id="waiverDAO" class="com.edu.mum.dao.WaiverDAO">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="customerProductServiceImpl" class="com.edu.mum.service.CustomerProductServiceImpl">
+        <constructor-arg index="0" ref="customerProductDao" />
+    </bean>
+    <bean id="customerProductDao" class="com.edu.mum.dao.CustomerProductDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+
+</beans>

@@ -1,0 +1,93 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 20, 2014, 3:26:53 PM
+    Author     : mzijlstra
+*/
+
+.error {
+    color: red;
+}
+.errorblock {
+    color: black;
+    background-color: #fee;
+    border: 3px solid red;
+    padding: 8px;
+    margin: 16px;
+}
+body{
+    color: darkolivegreen;
+    font-size: 16pt;
+    font-family: Georgia,Garamond;
+    background-attachment: fixed;
+    background-image: url("yogabackground.jpg");
+    background-repeat: no-repeat;
+/*    background-size:1380px 700px;*/
+}
+.left{
+    text-align: left;
+}
+.right{
+    text-align: right;
+}
+.center{
+    text-align: center;
+}
+.address{
+    width:350px;
+    margin-left:300px;
+    margin-top: 100px;
+}
+.address1{
+    width:350px;
+    margin-left:100px;
+    margin-top: 0px;
+}
+.main {
+    width: 800px;
+    left: 200px;
+    position: absolute;
+}
+h1  {
+    background-color: white;
+    color: darkolivegreen ;
+    font-family: "Lucida Sans Unicode","Helvetica","Arial";
+    text-decoration: underline;
+    letter-spacing: .25em;
+    font-weight: bold;
+    font-size: 25pt;
+    text-align: center;
+    
+}
+.v2{
+    text-align: right;
+    
+    font-family: "Lucida Sans Unicode","Helvetica","Arial";
+    font-size: 18pt;
+    
+   
+}
+.a{
+    background-color: white;
+    color: darkolivegreen;
+}
+
+a:link {
+background-color: white;
+color: blueviolet;
+}
+a:visited {
+background-color: white;
+color: darkolivegreen;
+}
+a:hover {
+background-color: white;
+color: darkolivegreen;
+}
+a:active {
+background-color: white;
+color: darkolivegreen;
+}
